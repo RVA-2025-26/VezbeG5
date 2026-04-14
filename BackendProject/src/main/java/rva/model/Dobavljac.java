@@ -18,7 +18,7 @@ public class Dobavljac {
 	@Id
 	@SequenceGenerator(name = "dobavljac_seq", sequenceName = "dobavljac_seq", allocationSize=1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dobavljac_seq")
-	private int id;
+	private Long id;
 	private String naziv;
 	private String adresa;
 	private String kontakt;
@@ -27,18 +27,22 @@ public class Dobavljac {
 	@JsonIgnore
 	private List<Porudzbina> porudzbine;
 	
-	public Dobavljac(int id, String naziv, String adresa, String kontakt) {
+	public Dobavljac() {
+		
+	}
+	
+	public Dobavljac(Long id, String naziv, String adresa, String kontakt) {
 		this.id = id;
 		this.naziv = naziv;
 		this.adresa = adresa;
 		this.kontakt = kontakt;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

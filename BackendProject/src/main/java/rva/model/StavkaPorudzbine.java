@@ -14,7 +14,7 @@ public class StavkaPorudzbine {
 	@Id
 	@SequenceGenerator(name = "stavka_porudzbine_seq", sequenceName = "stavka_porudzbine_seq", allocationSize=1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "stavka_porudzbine_seq")
-	private int id;
+	private Long id;
 	private int redniBroj;
 	private double kolicina;
 	private double cena;
@@ -31,7 +31,7 @@ public class StavkaPorudzbine {
 	public StavkaPorudzbine() {
 	}
 
-	public StavkaPorudzbine(int id, int redniBroj, double kolicina, double cena, String jedinicaMere, Artikl artikl,
+	public StavkaPorudzbine(Long id, int redniBroj, double kolicina, double cena, String jedinicaMere, Artikl artikl,
 			Porudzbina porudzbina) {
 		this.id = id;
 		this.redniBroj = redniBroj;
@@ -42,11 +42,11 @@ public class StavkaPorudzbine {
 		this.porudzbina = porudzbina;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

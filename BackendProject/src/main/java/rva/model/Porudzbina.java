@@ -21,7 +21,7 @@ public class Porudzbina {
 	@Id
 	@SequenceGenerator(name = "porudzbina_seq", sequenceName = "porudzbina_seq", allocationSize=1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "porudzbina_seq")
-	private int id;
+	private Long id;
 	private Date datumPorudzbine;
 	private Date datumIsporuke;
 	private boolean placeno;
@@ -40,7 +40,7 @@ public class Porudzbina {
 	
 	}
 
-	public Porudzbina(int id, Date datumPorudzbine, Date datumIsporuke, boolean placeno, double iznos,
+	public Porudzbina(Long id, Date datumPorudzbine, Date datumIsporuke, boolean placeno, double iznos,
 			Dobavljac dobavljac) {
 		this.id = id;
 		this.datumPorudzbine = datumPorudzbine;
@@ -50,11 +50,11 @@ public class Porudzbina {
 		this.dobavljac = dobavljac;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
