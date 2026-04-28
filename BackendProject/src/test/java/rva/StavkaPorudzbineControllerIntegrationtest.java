@@ -107,7 +107,7 @@ class StavkaPorudzbineControllerIntegrationtest {
 		assertEquals(stavka.getCena(), response.getBody().getCena());
 		assertEquals(stavka.getJedinicaMere(), response.getBody().getJedinicaMere());
 		if(largestId < response.getBody().getId()) largestId = 
-				response.getBody().getId();
+				(int) response.getBody().getId();
 	}
 	
 	@Test
@@ -117,14 +117,12 @@ class StavkaPorudzbineControllerIntegrationtest {
 		stavka.setCena(500);
 		stavka.setJedinicaMere("PUT TEST");
 		
-		HttpEntity<StavkaPorudzbine> entity 
-		= new HttpEntity<StavkaPorudzbine>(stavka);
+		HttpEntity<StavkaPorudzbine> entity = new HttpEntity<StavkaPorudzbine>(stavka);
 		
+		ResponseEntity<StavkaPorudzbine> response =
+		template.exchange(apiUrl +"?id=" + largestId, HttpMethod.PUT, entity, StavkaPorudzbine.class);
 		
-		ResponseEntity<StavkaPorudzbine> response = 
-				template.exchange(apiUrl+ "?id=" + largestId, HttpMethod.PUT, entity, StavkaPorudzbine.class);
-		
-		assertEquals(201, response.getStatusCode().value());
+		assertEquals(200, response.getStatusCode().value());
 		assertEquals(stavka.getCena(), response.getBody().getCena());
 		assertEquals(stavka.getJedinicaMere(), response.getBody().getJedinicaMere());
 	}
