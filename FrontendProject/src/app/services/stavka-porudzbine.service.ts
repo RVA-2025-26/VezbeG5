@@ -1,9 +1,32 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { StavkaPorudzbine } from '../models/stavka-porudzbine';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StavkaPorudzbineService {
 
-  constructor() { }
+  constructor(private httpClient:HttpClient) { }
+
+  public getStavkeByPorudzbina(porudzbinaId:number): Observable<any> {
+    return this.httpClient.get(`http://localhost:8080/stavkaPorudzbines/porudzbina?porudzbinaId=${porudzbinaId}`);
+  }
+
+  public getAllStavkaPorudzbines(): Observable<any>{
+    return this.httpClient.get(`http://localhost:8080/stavkaPorudzbines`);
+  }
+
+  public createStavkaPorudzbine(stavkaPorudzbine:StavkaPorudzbine): Observable<any>{
+    return this.httpClient.post(`http://localhost:8080/stavkaPorudzbines`, stavkaPorudzbine);
+  }
+
+  public updateStavkaPorudzbine(stavkaPorudzbine:StavkaPorudzbine): Observable<any>{
+    return this.httpClient.put(`http://localhost:8080/stavkaPorudzbines?id=${stavkaPorudzbine.id}`, stavkaPorudzbine)
+  }
+
+  public deleteStavkePorudzbine(id:number): Observable<any> {
+    return this.httpClient.delete(`http://localhost:8080/stavkaPorudzbines?id=${id}`);
+  }
 }
