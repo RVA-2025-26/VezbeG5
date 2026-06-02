@@ -16,7 +16,6 @@
   
   h3 {
     text-align: center;
-    text-wrap: pretty;
   }
   
   .mat-form-field {
@@ -46,3 +45,4 @@
   .mat-dialog-actions button:last-child {
     background-color: rgb(217, 87, 87);
   }
+  

@@ -1,29 +1,40 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Artikl } from '../../models/artikl';
 import { StavkaPorudzbine } from '../../models/stavka-porudzbine';
+import { ArtiklService } from '../../services/artikl.service';
 import { StavkaPorudzbineService } from '../../services/stavka-porudzbine.service';
 
 @Component({
   selector: 'app-stavka-porudzbine-dialog',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, MatInputModule, FormsModule, MatFormFieldModule],
+  imports: [MatDialogModule, MatButtonModule, MatInputModule, FormsModule, MatFormFieldModule, MatSelectModule],
   templateUrl: './stavka-porudzbine-dialog.component.html',
   styleUrl: './stavka-porudzbine-dialog.component.css'
 })
-export class StavkaPorudzbineDialogComponent {
+export class StavkaPorudzbineDialogComponent implements OnInit{
 
   flag!:number;
+  artikli:Artikl[] = [];
 
   constructor(private service:StavkaPorudzbineService,
               private snackBar:MatSnackBar,
               private dialogRef:MatDialogRef<StavkaPorudzbineDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: StavkaPorudzbine
+              @Inject(MAT_DIALOG_DATA) public data: StavkaPorudzbine,
+              private artiklService:ArtiklService
     ) {}
+
+  ngOnInit(): void {
+    this.artiklService.getAllArtikls().subscribe(
+      (data) => this.artikli = data
+    )
+  }
 
     public add(): void {
       this.service.createStavkaPorudzbine(this.data).subscribe({
@@ -67,6 +78,10 @@ export class StavkaPorudzbineDialogComponent {
     public cancel(): void{
       this.dialogRef.close(1);
       this.snackBar.open(`You've given up on changes!`, `OK`, {duration:2500});
+    }
+
+    public compare(a:any, b:any) {
+      return a.id == b.id;
     }
 
 }

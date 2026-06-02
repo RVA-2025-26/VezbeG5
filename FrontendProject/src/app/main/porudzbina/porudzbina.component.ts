@@ -8,17 +8,20 @@ import { PorudzbinaService } from '../../services/porudzbina.service';
 import { Porudzbina } from '../../models/porudzbina';
 import { Dobavljac } from '../../models/dobavljac';
 import { PorudzbinaDialogComponent } from '../../dialogs/porudzbina-dialog/porudzbina-dialog.component';
+import { StavkaPorudzbineComponent } from '../stavka-porudzbine/stavka-porudzbine.component';
 
 @Component({
   selector: 'app-porudzbina',
   standalone: true,
-  imports: [MatTableModule, MatIconModule, MatToolbarModule, DatePipe],
+  imports: [MatTableModule, MatIconModule, MatToolbarModule, DatePipe, StavkaPorudzbineComponent],
   templateUrl: './porudzbina.component.html',
   styleUrl: './porudzbina.component.css'
 })
 export class PorudzbinaComponent implements OnInit{
   displayedColumns = ['id', 'datumPorudzbine', 'datumIsporuke', 'iznos', 'placeno', 'dobavljac', 'actions'];
   dataSource!:MatTableDataSource<Porudzbina>;
+  
+  parentSelectedPorudzbina!:Porudzbina;
 
   constructor(private service:PorudzbinaService, private dialog:MatDialog){}
 
@@ -45,5 +48,8 @@ export class PorudzbinaComponent implements OnInit{
     )
   }
 
+  public selectRow(row:Porudzbina){
+    this.parentSelectedPorudzbina = row;
+  }
 
 }

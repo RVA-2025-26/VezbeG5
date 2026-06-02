@@ -1,32 +1,50 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Dobavljac } from '../../models/dobavljac';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Porudzbina } from '../../models/porudzbina';
 import { PorudzbinaService } from '../../services/porudzbina.service';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { Dobavljac } from '../../models/dobavljac';
+import { DobavljacService } from '../../services/dobavljac.service';
 
 @Component({
   selector: 'app-porudzbina-dialog',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, MatInputModule, FormsModule, MatFormFieldModule],
+  imports: [MatDialogModule, MatButtonModule, MatInputModule, FormsModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule, MatSelectModule],
   templateUrl: './porudzbina-dialog.component.html',
   styleUrl: './porudzbina-dialog.component.css'
 })
-export class PorudzbinaDialogComponent {
+export class PorudzbinaDialogComponent implements OnInit {
 
   flag!:number;
+  dobavljaci:Dobavljac[] = [];
 
   constructor(private service:PorudzbinaService,
               private snackBar:MatSnackBar,
               private dialogRef:MatDialogRef<PorudzbinaDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: Porudzbina
+              @Inject(MAT_DIALOG_DATA) public data: Porudzbina,
+              private dobavljacService:DobavljacService
     ) {}
 
+  ngOnInit(): void {
+    this.dobavljacService.getAllDobavljacs().subscribe(
+      (data) => this.dobavljaci = data
+    )
+  }
+
+    public compare(a:any, b:any) {
+      return a.id == b.id;
+    }
+
     public add(): void {
+      this.data.id = 0;
       this.service.createPorudzbina(this.data).subscribe({
         next: (data) => {
           this.dialogRef.close(1);
