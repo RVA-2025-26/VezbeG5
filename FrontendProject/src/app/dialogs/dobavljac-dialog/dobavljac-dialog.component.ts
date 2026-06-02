@@ -1,5 +1,9 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Artikl } from '../../models/artikl';
 import { Dobavljac } from '../../models/dobavljac';
@@ -9,7 +13,7 @@ import { ArtiklDialogComponent } from '../artikl-dialog/artikl-dialog.component'
 @Component({
   selector: 'app-dobavljac-dialog',
   standalone: true,
-  imports: [],
+  imports: [MatDialogModule, MatButtonModule, MatInputModule, FormsModule, MatFormFieldModule],
   templateUrl: './dobavljac-dialog.component.html',
   styleUrl: './dobavljac-dialog.component.css'
 })
