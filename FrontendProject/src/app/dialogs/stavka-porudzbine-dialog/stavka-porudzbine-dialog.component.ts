@@ -37,6 +37,7 @@ export class StavkaPorudzbineDialogComponent implements OnInit{
   }
 
     public add(): void {
+      this.data.id = 0;
       this.service.createStavkaPorudzbine(this.data).subscribe({
         next: (data) => {
           this.dialogRef.close(1);

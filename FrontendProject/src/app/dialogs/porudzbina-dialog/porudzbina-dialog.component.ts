@@ -44,7 +44,7 @@ export class PorudzbinaDialogComponent implements OnInit {
     }
 
     public add(): void {
-      this.data.id = 0;
+      //this.data.id = 0;
       this.service.createPorudzbina(this.data).subscribe({
         next: (data) => {
           this.dialogRef.close(1);
